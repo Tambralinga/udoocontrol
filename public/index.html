@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>UDOO - Control</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+
+<link rel="stylesheet" href="css/bootstrap-switch.css">
+<link rel="stylesheet" href="css/spacelab.css">
+<link rel="stylesheet" href="css/slider.css">
+<link rel="stylesheet" href="css/control.css">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="css/bootstrap-responsive.min.css" rel="stylesheet">
+
+</head>
+<body>
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap-switch.js"></script>
+<script src="js/bootstrap-slider.js"></script>
+<script src="/socket.io/socket.io.js"></script>
+<script src="js/socket.js"></script>
+<br>
+<div class="container">
+<div class="span3">
+<div class="hero-unit"><div class="preview-title">LED 10</div>
+<input id="LED10" type="checkbox" checked data-on-color="success" data-off-color="danger" class="label-toggle-switchl10" data-animate="false" data-on-text="I" data-off-text="O">
+</div>
+</div>
+<div class="span3">
+<div class="hero-unit"><div class="preview-title">LED 11</div>
+<input id="LED11" type="checkbox" checked data-on-color="success" data-off-color="danger" class="label-toggle-switchl11" data-animate="false" data-on-text="I" data-off-text="O">
+</div>
+</div>
+<div class="span3">
+<div class="hero-unit"><div class="preview-title">LED 12</div>
+<input id="LED12" type="checkbox" checked data-on-color="success" data-off-color="danger" class="label-toggle-switchl12" data-animate="false" data-on-text="I" data-off-text="O">
+</div>
+</div>  
+<div class="span4">
+<div class="hero-unit"><div class="preview-title">PIN 9</div>
+<input type="text" class="span3" value="0" data-slider-min="0" data-slider-max="255" data-slider-step="15" id="sl1" data-slider-selection="after" data-slider-tooltip="hide">
+</div>
+</div>  
+</div>
+<footer>
+<center>designed for HTML5, node.js, socket.io and UDOO</center>
+</footer>
+</body>
+</html>
