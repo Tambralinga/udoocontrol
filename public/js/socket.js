@@ -35,11 +35,21 @@ $(function() {
 
   var socket = io.connect();
   
-  socket.on('fromserver', function (data) {
+  socket.on('fromserver1', function (data) {
   $('#LED10').bootstrapSwitch('state', data.sw1);
   $('#LED11').bootstrapSwitch('state', data.sw2);
   $('#LED12').bootstrapSwitch('state', data.sw3);
   $('#sl1').slider('setValue',data.p9);
+  });
+  
+  socket.on('fromserver2', function (data) {
+  $('#LED10').bootstrapSwitch('state', data.sw1);
+  $('#LED11').bootstrapSwitch('state', data.sw2);
+  $('#LED12').bootstrapSwitch('state', data.sw3);
+  $('#sl1').slider('setValue',data.p9);
+  });  
+
+
     $('.label-toggle-switchl10').on('switchChange', function(e, data) {
     socket.emit('fromclient', { l10:data.value });
    	});
@@ -52,5 +62,5 @@ $(function() {
     $('#sl1').slider().on('slideStop', function(data) {
     socket.emit('fromclient', { p9:data.value });
     });
-  });
+  
 });

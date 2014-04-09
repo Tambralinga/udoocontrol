@@ -36,6 +36,7 @@ app.get('/', function (req, res) {
 	res.sendfile(__dirname + '/public/index.html');
 });
 
+
 setTimeout(function () {
 if(start==0)
 {
@@ -49,18 +50,17 @@ db.each("SELECT sw_1,sw_2,sw_3,p_9 FROM Switches", function(err, row) {
 	l12st=row.sw_3;
 	p9st=row.p_9;
 });
-start=1;
 }
 },500);
 
 io.configure('production', function(){
 	io.set('log level', 0);
-	io.set('heartbeats', false);
+	io.set('heartbeats', true);
 });
 
 function IOSocket() {
 io.sockets.on('connection', function (socket) {
-	socket.emit('fromserver',  {sw1:l10st,sw2:l11st,sw3:l12st,p9:p9st});
+	socket.emit('fromserver1',  {sw1:l10st,sw2:l11st,sw3:l12st,p9:p9st});
 	socket.on('fromclient',  function (data) {
 	if (data.l10==true)
 		{
@@ -98,6 +98,7 @@ io.sockets.on('connection', function (socket) {
 	p9st=data.p9;
 	}
 	console.log(data);
+	socket.broadcast.emit('fromserver2',  {sw1:l10st,sw2:l11st,sw3:l12st,p9:p9st});
 	db.prepare("UPDATE Switches SET sw_1='"+ l10st +"', sw_2='"+ l11st +"', sw_3='" + l12st + "', p_9='" + p9st +"' WHERE 1").run().finalize();
 	});
 });
