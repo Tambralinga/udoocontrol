@@ -24,7 +24,10 @@ var serialPort= new SerialPort(portName, {
          stopBits: 1,
          flowControl: false
 });        
+var receivedData = "";
+var sendData = "";
 IOSocket();
+A0Value();
 udoo.reset();
 
 server.listen(conf.port);
@@ -60,8 +63,12 @@ io.configure('production', function(){
 
 function IOSocket() {
 io.sockets.on('connection', function (socket) {
-	socket.emit('fromserver1',  {sw1:l10st,sw2:l11st,sw3:l12st,p9:p9st});
-	socket.on('fromclient',  function (data) {
+	socket.emit('fromserver1',  {sw1:l10st,sw2:l11st,sw3:l12st,p9:p9st,a0:sendData});
+ 	socket.emit('onconnection', {pollOneValue:sendData});
+  	io.on('update', function(data) {
+  	socket.emit('updateData',{pollOneValue:data});
+  	});
+    socket.on('fromclient',  function (data) {
 	if (data.l10==true)
 		{
 		led10.setHigh();
@@ -101,6 +108,21 @@ io.sockets.on('connection', function (socket) {
 	socket.broadcast.emit('fromserver2',  {sw1:l10st,sw2:l11st,sw3:l12st,p9:p9st});
 	db.prepare("UPDATE Switches SET sw_1='"+ l10st +"', sw_2='"+ l11st +"', sw_3='" + l12st + "', p_9='" + p9st +"' WHERE 1").run().finalize();
 	});
-});
+  });
+}
+
+function A0Value() {
+    serialPort.on("open", function () {
+      console.log('open serial communication');
+        serialPort.on('data', function(data) {
+             receivedData += data.toString();
+          if (receivedData .indexOf('E') >= 0 && receivedData .indexOf('B') >= 0) {
+           sendData = receivedData .substring(receivedData .indexOf('B') + 1, receivedData .indexOf('E'));
+           receivedData = '';
+    	
+     	  io.emit('update', sendData);
+         }
+       });  
+    });
 }
 console.log('Der Server läuft nun auf dem Port ' + conf.port);

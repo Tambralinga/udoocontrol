@@ -34,7 +34,8 @@ $(function() {
 
 
   var socket = io.connect();
-  
+  var A0Value;
+
   socket.on('fromserver1', function (data) {
   $('#LED10').bootstrapSwitch('state', data.sw1);
   $('#LED11').bootstrapSwitch('state', data.sw2);
@@ -48,6 +49,13 @@ $(function() {
   $('#LED12').bootstrapSwitch('state', data.sw3);
   $('#sl1').slider('setValue',data.p9);
   });  
+
+ socket.on('onconnection', function(value) {
+  socket.on('updateData', function (recievedData) {
+      content.clearRect(0, 0, 100, 20);
+      content.fillText(recievedData.pollOneValue, 0, 20);
+      });
+  });
 
 
     $('.label-toggle-switchl10').on('switchChange', function(e, data) {

@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html>
 <head>
 <title>UDOO - Control</title>
@@ -9,16 +10,16 @@
 <link rel="stylesheet" href="css/spacelab.css">
 <link rel="stylesheet" href="css/slider.css">
 <link rel="stylesheet" href="css/control.css">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link href="css/bootstrap-responsive.min.css" rel="stylesheet">
-
-</head>
-<body>
 <script src="js/jquery.min.js"></script>
 <script src="js/bootstrap-switch.js"></script>
 <script src="js/bootstrap-slider.js"></script>
 <script src="/socket.io/socket.io.js"></script>
 <script src="js/socket.js"></script>
+</head>
+<body>
 <br>
 <div class="container">
 <div class="span3">
@@ -36,14 +37,26 @@
 <input id="LED12" type="checkbox" checked data-on-color="success" data-off-color="danger" class="label-toggle-switchl12" data-animate="false" data-on-text="I" data-off-text="O">
 </div>
 </div>  
-<div class="span4">
+<div class="span3">
 <div class="hero-unit"><div class="preview-title">PIN 9</div>
-<input type="text" class="span3" value="0" data-slider-min="0" data-slider-max="255" data-slider-step="15" id="sl1" data-slider-selection="after" data-slider-tooltip="hide">
+<input type="text" class="span2" value="0" data-slider-min="0" data-slider-max="255" data-slider-step="15" id="sl1" data-slider-tooltip="hide">
 </div>
 </div>  
+<div class="span3">
+<div class="hero-unit"><div class="preview-title">A0</div>
+<canvas id="myCanvas" widht="0" height="20"></canvas>
+</div>
+</div>
 </div>
 <footer>
 <center>designed for HTML5, node.js, socket.io and UDOO</center>
 </footer>
+<script>
+	var canvas = document.getElementById("myCanvas");
+	var content = canvas.getContext("2d");
+	content.fillStyle = 'black';
+	content.textAlign = 'left';
+	content.font = '15pt Arial';
+</script>
 </body>
 </html>
